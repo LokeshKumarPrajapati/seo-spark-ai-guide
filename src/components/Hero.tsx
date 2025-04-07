@@ -1,10 +1,23 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import UrlAnalyzer from './UrlAnalyzer';
 import StatsPreview from './StatsPreview';
+import WebsitePreview from './WebsitePreview';
 import { ArrowRight, Zap, LineChart, Search, BarChart } from 'lucide-react';
 
 const Hero: React.FC = () => {
+  const [previewUrl, setPreviewUrl] = useState<string | null>(null);
+  const [isAnalyzing, setIsAnalyzing] = useState(false);
+
+  const handleAnalysisStart = (url: string) => {
+    setPreviewUrl(url);
+    setIsAnalyzing(true);
+  };
+
+  const handleAnalysisComplete = () => {
+    setIsAnalyzing(false);
+  };
+
   return (
     <div className="bg-hero-pattern py-20 md:py-32">
       <div className="container mx-auto px-4">
@@ -21,7 +34,15 @@ const Hero: React.FC = () => {
           <p className="text-xl md:text-2xl text-gray-700 mb-8">
             Get instant insights and AI recommendations to improve your website's search engine ranking and performance.
           </p>
-          <UrlAnalyzer />
+          <UrlAnalyzer 
+            onAnalysisStart={handleAnalysisStart}
+            onAnalysisComplete={handleAnalysisComplete}
+          />
+        </div>
+        
+        {/* Website Preview Section */}
+        <div className="mt-12 mb-12">
+          <WebsitePreview url={previewUrl} isAnalyzing={isAnalyzing} />
         </div>
         
         <div className="flex flex-col md:flex-row gap-6 md:gap-10 items-center justify-center mb-6 mt-12">

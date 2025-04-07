@@ -1,42 +1,135 @@
+
+/* Base styles */
 #root {
-  max-width: 1280px;
+  width: 100%;
   margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+  text-align: left;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+/* Tailwind enhanced styles */
+.bg-hero-pattern {
+  background-color: #f8fafc;
+  background-image: 
+    radial-gradient(at 0% 0%, rgba(236, 253, 245, 0.4) 0px, transparent 60%),
+    radial-gradient(at 100% 0%, rgba(224, 242, 254, 0.4) 0px, transparent 60%);
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
+.bg-blue-gradient {
+  background: linear-gradient(135deg, #3b82f6 0%, #4f46e5 100%);
+}
+
+.animate-gradient-x {
+  background-size: 200% 200%;
+  animation: gradient-x 15s ease infinite;
+}
+
+@keyframes gradient-x {
+  0% {
+    background-position: 0% 50%;
   }
-  to {
-    transform: rotate(360deg);
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
   }
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
+h1 {
+  font-size: 2.5rem;
+  line-height: 1.2;
+  font-weight: 800;
+}
+
+@media (min-width: 768px) {
+  h1 {
+    font-size: 3.5rem;
   }
 }
 
-.card {
-  padding: 2em;
+/* Custom utility colors */
+.text-seo-blue {
+  color: #4f46e5;
 }
 
-.read-the-docs {
-  color: #888;
+.text-seo-blue-dark {
+  color: #3730a3;
+}
+
+.text-seo-green {
+  color: #10b981;
+}
+
+.text-seo-yellow {
+  color: #f59e0b;
+}
+
+.text-seo-red {
+  color: #ef4444;
+}
+
+.bg-seo-blue {
+  background-color: #4f46e5;
+}
+
+.bg-seo-blue-dark {
+  background-color: #3730a3;
+}
+
+.hover\:bg-seo-blue:hover {
+  background-color: #4f46e5;
+}
+
+.hover\:bg-seo-blue-dark:hover {
+  background-color: #3730a3;
+}
+
+/* Fix for iframe preview display */
+iframe {
+  display: block;
+  transition: opacity 0.3s ease;
+}
+
+/* Animation for website loading */
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.animate-pulse {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* Table styles for admin panel */
+.table-container {
+  border-radius: 0.5rem;
+  overflow: hidden;
+}
+
+/* Success/error badge colors */
+.badge-success {
+  background-color: #dcfce7;
+  color: #16a34a;
+}
+
+.badge-error {
+  background-color: #fee2e2;
+  color: #dc2626;
+}
+
+/* Progress bar colors */
+.progress-green {
+  background-color: #10b981;
+}
+
+.progress-yellow {
+  background-color: #f59e0b;
+}
+
+.progress-red {
+  background-color: #ef4444;
 }

@@ -5,8 +5,17 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Search, Link, AlertTriangle } from 'lucide-react';
 import { toast } from 'sonner';
+import { crawlWebsite } from '../services/WebsiteCrawlerService';
 
-const UrlAnalyzer: React.FC = () => {
+interface UrlAnalyzerProps {
+  onAnalysisStart?: (url: string) => void;
+  onAnalysisComplete?: (data: any) => void;
+}
+
+const UrlAnalyzer: React.FC<UrlAnalyzerProps> = ({ 
+  onAnalysisStart, 
+  onAnalysisComplete 
+}) => {
   const [url, setUrl] = useState('');
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [error, setError] = useState('');
@@ -21,7 +30,7 @@ const UrlAnalyzer: React.FC = () => {
     }
   };
 
-  const handleAnalyze = (e: React.FormEvent) => {
+  const handleAnalyze = async (e: React.FormEvent) => {
     e.preventDefault();
     
     if (!url) {
@@ -37,13 +46,38 @@ const UrlAnalyzer: React.FC = () => {
     setError('');
     setIsAnalyzing(true);
     
-    // In a real implementation, we would call an API here
-    setTimeout(() => {
-      setIsAnalyzing(false);
-      // Navigate to results page
+    // Notify parent component that analysis has started
+    if (onAnalysisStart) {
+      onAnalysisStart(url);
+    }
+    
+    try {
+      // Call our crawler service
+      const analysisData = await crawlWebsite(url);
+      
+      // Store analysis results in sessionStorage to share between pages
+      sessionStorage.setItem('seoAnalysisData', JSON.stringify({
+        url,
+        data: analysisData,
+        timestamp: new Date().toISOString()
+      }));
+      
+      // Notify parent component that analysis is complete
+      if (onAnalysisComplete) {
+        onAnalysisComplete(analysisData);
+      }
+      
+      // Show success notification
       toast.success("Website analysis complete!");
+      
+      // Navigate to results page
       navigate('/results');
-    }, 2000);
+    } catch (error) {
+      console.error("Analysis error:", error);
+      toast.error("Failed to analyze website. Please try again.");
+    } finally {
+      setIsAnalyzing(false);
+    }
   };
 
   return (
