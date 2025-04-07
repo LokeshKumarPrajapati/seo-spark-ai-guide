@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -61,6 +62,17 @@ export default {
 					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
+				},
+				// SEO Analyzer specific colors
+				seo: {
+					blue: {
+						light: '#4F86E3',
+						DEFAULT: '#1E64DA',
+						dark: '#0F3985',
+					},
+					green: '#2ECC71',
+					yellow: '#F39C12',
+					red: '#E74C3C',
 				}
 			},
 			borderRadius: {
@@ -84,12 +96,30 @@ export default {
 					to: {
 						height: '0'
 					}
-				}
+				},
+				'pulse-slow': {
+					'0%, 100%': { opacity: '1' },
+					'50%': { opacity: '0.7' },
+				},
+				'gradient-x': {
+					'0%, 100%': {
+						'background-position': '0% 50%',
+					},
+					'50%': {
+						'background-position': '100% 50%',
+					},
+				},
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
-				'accordion-up': 'accordion-up 0.2s ease-out'
-			}
+				'accordion-up': 'accordion-up 0.2s ease-out',
+				'pulse-slow': 'pulse-slow 3s ease-in-out infinite',
+				'gradient-x': 'gradient-x 15s ease infinite',
+			},
+			backgroundImage: {
+				'hero-pattern': 'linear-gradient(135deg, rgba(30, 100, 218, 0.1) 0%, rgba(15, 57, 133, 0.1) 100%)',
+				'blue-gradient': 'linear-gradient(90deg, #1E64DA 0%, #0F3985 100%)',
+			},
 		}
 	},
 	plugins: [require("tailwindcss-animate")],
