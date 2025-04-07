@@ -6,6 +6,7 @@ import { Input } from '@/components/ui/input';
 import { Search, Link, AlertTriangle } from 'lucide-react';
 import { toast } from 'sonner';
 import { crawlWebsite } from '../services/WebsiteCrawlerService';
+import WebsitePreview from './WebsitePreview';
 
 interface UrlAnalyzerProps {
   onAnalysisStart?: (url: string) => void;
@@ -19,6 +20,7 @@ const UrlAnalyzer: React.FC<UrlAnalyzerProps> = ({
   const [url, setUrl] = useState('');
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [error, setError] = useState('');
+  const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const navigate = useNavigate();
 
   const validateUrl = (input: string) => {
@@ -45,6 +47,7 @@ const UrlAnalyzer: React.FC<UrlAnalyzerProps> = ({
     
     setError('');
     setIsAnalyzing(true);
+    setPreviewUrl(url);
     
     // Notify parent component that analysis has started
     if (onAnalysisStart) {
@@ -81,8 +84,8 @@ const UrlAnalyzer: React.FC<UrlAnalyzerProps> = ({
   };
 
   return (
-    <div className="bg-white p-6 rounded-xl shadow-lg border border-gray-100">
-      <form onSubmit={handleAnalyze}>
+    <div className="w-full">
+      <form onSubmit={handleAnalyze} className="bg-white p-6 rounded-xl shadow-lg border border-gray-100 mb-6">
         <div className="flex flex-col md:flex-row gap-4">
           <div className="flex-grow relative">
             <div className="absolute inset-y-0 left-3 flex items-center pointer-events-none">
@@ -126,6 +129,8 @@ const UrlAnalyzer: React.FC<UrlAnalyzerProps> = ({
           FREE analysis includes 50+ key SEO metrics and basic recommendations
         </div>
       </form>
+      
+      <WebsitePreview url={previewUrl} isAnalyzing={isAnalyzing} />
     </div>
   );
 };
