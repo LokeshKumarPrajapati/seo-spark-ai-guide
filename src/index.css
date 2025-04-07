@@ -139,4 +139,24 @@
   .btn-primary {
     @apply bg-seo-blue text-white px-6 py-3 rounded-lg font-medium hover:bg-seo-blue-dark transition-colors;
   }
+
+  .bg-blue-gradient {
+    @apply bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-800;
+  }
+
+  .animate-gradient-x {
+    @apply bg-[length:200%_200%] animate-[gradient_8s_ease_infinite];
+  }
+
+  @keyframes gradient {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
 }

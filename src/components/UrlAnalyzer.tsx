@@ -1,12 +1,15 @@
 
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Search } from 'lucide-react';
+import { toast } from 'sonner';
 
 const UrlAnalyzer: React.FC = () => {
   const [url, setUrl] = useState('');
   const [isAnalyzing, setIsAnalyzing] = useState(false);
+  const navigate = useNavigate();
 
   const handleAnalyze = (e: React.FormEvent) => {
     e.preventDefault();
@@ -17,8 +20,9 @@ const UrlAnalyzer: React.FC = () => {
     // In a real implementation, we would call an API here
     setTimeout(() => {
       setIsAnalyzing(false);
-      // For now, we'll just redirect to a dummy results page
-      alert("In a complete implementation, this would analyze: " + url);
+      // Navigate to results page
+      toast.success("Website analysis complete!");
+      navigate('/results');
     }, 2000);
   };
 
